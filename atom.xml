@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>林燮</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <id>https://cr-coder0527.github.io/</id>
+  <link href="https://cr-coder0527.github.io/" rel="alternate"/>
+  <link href="https://cr-coder0527.github.io/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, 林燮</rights>
+  <subtitle>Cr的空间</subtitle>
+  <title>Hexo</title>
+  <updated>2026-09-24T11:27:18.440Z</updated>
+  <entry>
+    <author>
+      <name>林燮</name>
+    </author>
+    <category term="随笔" scheme="https://cr-coder0527.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    <id>https://cr-coder0527.github.io/2026/09/24/ren-sheng-chang-zai-bie-li-zhong/</id>
+    <link href="https://cr-coder0527.github.io/2026/09/24/ren-sheng-chang-zai-bie-li-zhong/"/>
+    <published>2026-09-24T11:30:00.000Z</published>
+    <summary>
+      <![CDATA[<blockquote>
+<p>水无定，花有尽，会相逢，可是人生常在、别离中。</p>
+</blockquote>
+<p>今天语文课上本来是应该默写《项脊轩志》，但是最近一直在看飞花令根本没背，所以就干脆看了一节课的书。看到了叶嘉莹讲韦应物的一句“今朝此为别，何处再相逢”，看得我]]>
+    </summary>
+    <title>人生常在别离中</title>
+    <updated>2026-09-24T11:27:18.440Z</updated>
+  </entry>
+</feed>
