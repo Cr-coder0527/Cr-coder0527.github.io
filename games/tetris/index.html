@@ -143,6 +143,10 @@
         <div class="value" id="score">0</div>
       </div>
       <div class="panel">
+        <div class="label">最高分</div>
+        <div class="value" id="best" style="color:#e8a02c">0</div>
+      </div>
+      <div class="panel">
         <div class="label">等级 / 行数</div>
         <div class="value" style="font-size:18px"><span id="level">1</span> &nbsp;·&nbsp; <span id="lines">0</span></div>
       </div>
@@ -191,6 +195,7 @@
   var nctx = nextCv.getContext('2d');
 
   var scoreEl = document.getElementById('score');
+  var bestEl = document.getElementById('best');
   var levelEl = document.getElementById('level');
   var linesEl = document.getElementById('lines');
   var overlay = document.getElementById('overlay');
@@ -218,6 +223,24 @@
 
   var grid, cur, next, score, level, lines, dropInterval, dropTimer, lastTime, running, paused, gameOver;
   var rafId = null;
+
+  // ---------- 本地最高分 ----------
+  var BEST_KEY = 'hexo-tetris-best-score';
+  var best = 0;
+  function loadBest() {
+    try { best = parseInt(localStorage.getItem(BEST_KEY), 10) || 0; }
+    catch (e) { best = 0; }
+    bestEl.textContent = best;
+  }
+  function saveBest() {
+    if (score > best) {
+      best = score;
+      bestEl.textContent = best;
+      try { localStorage.setItem(BEST_KEY, String(best)); } catch (e) {}
+      return true; // 创造新纪录
+    }
+    return false;
+  }
 
   function emptyGrid() {
     var g = [];
@@ -506,8 +529,12 @@
   function endGame() {
     gameOver = true;
     running = false;
-    ovTitle.textContent = '游戏结束';
-    ovText.innerHTML = '最终得分：<b style="color:#1de9b6">' + score + '</b><br>消除行数：' + lines + ' · 等级：' + level;
+    var isRecord = saveBest();
+    ovTitle.textContent = isRecord ? '新纪录！' : '游戏结束';
+    ovText.innerHTML =
+      (isRecord ? '🎉 恭喜创造新最高分：<b style="color:#f7c948">' + best + '</b>'
+                : '最终得分：<b style="color:#1de9b6">' + score + '</b>（最高 ' + best + '）')
+      + '<br>消除行数：' + lines + ' · 等级：' + level;
     ovBtn.textContent = '再来一局';
     overlay.classList.add('show');
   }
@@ -562,10 +589,14 @@
   });
 
   // ---------- 初始界面 ----------
+  loadBest();
   grid = emptyGrid();
   draw();
   drawNext();
   running = false; paused = false; gameOver = false;
+  if (best > 0) {
+    ovText.innerHTML = '点击下方按钮或按任意方向键开始游戏<br>历史最高分：<b style="color:#f7c948">' + best + '</b>';
+  }
   overlay.classList.add('show');
 })();
 </script>
