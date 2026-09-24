@@ -9,12 +9,13 @@
   <link href="https://cr-coder0527.github.io/atom.xml" rel="self"/>
   <rights>All rights reserved 2026, 林燮</rights>
   <subtitle>Cr的空间</subtitle>
-  <title>Hexo</title>
-  <updated>2026-09-24T11:27:18.440Z</updated>
+  <title>Cr的空间</title>
+  <updated>2026-09-24T16:16:13.812Z</updated>
   <entry>
     <author>
       <name>林燮</name>
     </author>
+    <category term="生活随笔" scheme="https://cr-coder0527.github.io/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
     <category term="随笔" scheme="https://cr-coder0527.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     <id>https://cr-coder0527.github.io/2026/09/24/ren-sheng-chang-zai-bie-li-zhong/</id>
     <link href="https://cr-coder0527.github.io/2026/09/24/ren-sheng-chang-zai-bie-li-zhong/"/>
@@ -26,6 +27,41 @@
 <p>今天语文课上本来是应该默写《项脊轩志》，但是最近一直在看飞花令根本没背，所以就干脆看了一节课的书。看到了叶嘉莹讲韦应物的一句“今朝此为别，何处再相逢”，看得我]]>
     </summary>
     <title>人生常在别离中</title>
-    <updated>2026-09-24T11:27:18.440Z</updated>
+    <updated>2026-09-24T16:16:13.812Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>林燮</name>
+    </author>
+    <category term="技术笔记" scheme="https://cr-coder0527.github.io/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
+    <category term="Hexo" scheme="https://cr-coder0527.github.io/tags/Hexo/"/>
+    <category term="GitHub" scheme="https://cr-coder0527.github.io/tags/GitHub/"/>
+    <category term="博客搭建" scheme="https://cr-coder0527.github.io/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    <id>https://cr-coder0527.github.io/2026/09/24/hexo-github-pages-da-jian-bo-ke/</id>
+    <link href="https://cr-coder0527.github.io/2026/09/24/hexo-github-pages-da-jian-bo-ke/"/>
+    <published>2026-09-24T04:00:00.000Z</published>
+    <summary>
+      <![CDATA[<blockquote>
+<p>本文记录了我从零开始搭建本博客的全过程：使用 <a href="https://hexo.io/zh-cn/">Hexo</a> 生成静态网页，使用 <a]]>
+    </summary>
+    <title>使用 Hexo + GitHub Pages 搭建个人博客</title>
+    <updated>2026-09-24T16:15:58.058Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>林燮</name>
+    </author>
+    <category term="技术笔记" scheme="https://cr-coder0527.github.io/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
+    <category term="Markdown" scheme="https://cr-coder0527.github.io/tags/Markdown/"/>
+    <category term="教程" scheme="https://cr-coder0527.github.io/tags/%E6%95%99%E7%A8%8B/"/>
+    <id>https://cr-coder0527.github.io/2026/09/23/markdown-yu-fa-ru-men-zhi-nan/</id>
+    <link href="https://cr-coder0527.github.io/2026/09/23/markdown-yu-fa-ru-men-zhi-nan/"/>
+    <published>2026-09-23T12:00:00.000Z</published>
+    <summary>
+      <![CDATA[<blockquote>
+<p>这篇文章是我在搭建博客过程中整理的 <strong>Markdown 学习笔记</strong>。Markdown]]>
+    </summary>
+    <title>Markdown 语法入门指南</title>
+    <updated>2026-09-24T16:14:48.536Z</updated>
   </entry>
 </feed>
