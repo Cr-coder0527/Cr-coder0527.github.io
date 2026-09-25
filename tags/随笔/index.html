@@ -59,8 +59,8 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Cr的空间" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Cr的空间" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -417,9 +417,79 @@
                 </script>
                 
             </div>
+
+            <div class="hero-clock-weather center-align" data-aos="fade-up" data-aos-delay="600">
+                <div class="clock-glass">
+                    <div class="clock-date" id="heroDate">载入中…</div>
+                    <div class="clock-time" id="heroTime">--:--:--</div>
+                    <div class="clock-weather" id="heroWeather">
+                        <i class="fas fa-cloud-sun"></i> 天气加载中…
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    // === 实时时钟 ===
+    (function () {
+        function pad(n) { return n < 10 ? '0' + n : n; }
+        function updateClock() {
+            var now = new Date();
+            var weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+            var dateStr = now.getFullYear() + '年' + pad(now.getMonth()+1) + '月' + pad(now.getDate()) + '日 ' + weekdays[now.getDay()];
+            var timeStr = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+            document.getElementById('heroDate').textContent = dateStr;
+            document.getElementById('heroTime').textContent = timeStr;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    })();
+
+    // === 天气（Open-Meteo 免费接口，默认北京，可改经纬度） ===
+    (function () {
+        // 如需切换城市，修改下面两个数字（纬度, 经度）
+        // 常用参考：北京 39.9042,116.4074；上海 31.2304,121.4737；广州 23.1291,113.2644；深圳 22.5431,114.0579
+        var lat = 39.9042, lon = 116.4074;
+        var el = document.getElementById('heroWeather');
+
+        var wmoMap = {
+            0:  {icon: 'fa-sun', text: '晴朗'},
+            1:  {icon: 'fa-cloud-sun', text: ' mainly 晴'},
+            2:  {icon: 'fa-cloud-sun', text: '多云'},
+            3:  {icon: 'fa-cloud', text: '阴天'},
+            45: {icon: 'fa-smog', text: '雾'},
+            48: {icon: 'fa-smog', text: '雾凇'},
+            51: {icon: 'fa-cloud-rain', text: '毛毛雨'},
+            53: {icon: 'fa-cloud-rain', text: '中雨'},
+            55: {icon: 'fa-cloud-showers-heavy', text: '大雨'},
+            61: {icon: 'fa-cloud-rain', text: '小雨'},
+            63: {icon: 'fa-cloud-showers-heavy', text: '中雨'},
+            65: {icon: 'fa-cloud-showers-heavy', text: '大雨'},
+            71: {icon: 'fa-snowflake', text: '小雪'},
+            73: {icon: 'fa-snowflake', text: '中雪'},
+            75: {icon: 'fa-snowflake', text: '大雪'},
+            80: {icon: 'fa-cloud-rain', text: '阵雨'},
+            81: {icon: 'fa-cloud-showers-heavy', text: '强阵雨'},
+            82: {icon: 'fa-cloud-showers-heavy', text: '暴雨'},
+            95: {icon: 'fa-bolt', text: '雷雨'},
+            96: {icon: 'fa-bolt', text: '雷雨伴冰雹'},
+            99: {icon: 'fa-bolt', text: '强雷雨伴冰雹'}
+        };
+
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current_weather=true&timezone=Asia%2FShanghai')
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+                var cw = data.current_weather;
+                var info = wmoMap[cw.weathercode] || {icon: 'fa-cloud', text: '多云'};
+                el.innerHTML = '<i class="fas ' + info.icon + '"></i> ' + info.text + ' · ' + Math.round(cw.temperature) + '°C';
+            })
+            .catch(function () {
+                el.innerHTML = '<i class="fas fa-cloud"></i> 天气暂不可用';
+            });
+    })();
+</script>
 
 
 <script>
@@ -479,19 +549,10 @@
                 </a>
                 
                 
-                <a href="/tags/%E9%9A%8F%E7%AC%94/" title="随笔: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="随笔" style="background-color: #E8F8F5;">随笔
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/Markdown/" title="Markdown: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Markdown" style="background-color: #FEF9E7;">Markdown
+                            data-tagname="Markdown" style="background-color: #E8F8F5;">Markdown
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -500,7 +561,16 @@
                 <a href="/tags/%E6%95%99%E7%A8%8B/" title="教程: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="教程" style="background-color: #F8F9F9;">教程
+                            data-tagname="教程" style="background-color: #FEF9E7;">教程
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E9%9A%8F%E7%AC%94/" title="随笔: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="随笔" style="background-color: #F8F9F9;">随笔
                         <span class="tag-length">1</span>
                     </span>
                 </a>
