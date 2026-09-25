@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cr-coder0527.github.io/sitemap.xml
