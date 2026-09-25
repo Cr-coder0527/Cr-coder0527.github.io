@@ -423,7 +423,9 @@
                     <div class="clock-date" id="heroDate">载入中…</div>
                     <div class="clock-time" id="heroTime">--:--:--</div>
                     <div class="clock-weather" id="heroWeather">
-                        <i class="fas fa-cloud-sun"></i> 天气加载中…
+                        <i class="fas fa-location-dot"></i>
+                        <span id="heroWeatherText">正在定位…</span>
+                        <a href="javascript:;" class="hero-locate-btn" id="heroLocateBtn" title="重新定位"><i class="fas fa-crosshairs"></i></a>
                     </div>
                 </div>
             </div>
@@ -447,23 +449,24 @@
         setInterval(updateClock, 1000);
     })();
 
-    // === 天气（Open-Meteo 免费接口，默认北京，可改经纬度） ===
+    // === 天气：浏览器定位 → 按坐标取天气 + 逆地理编码显示城市名 ===
+    // 天气数据：Open-Meteo（免费无密钥）；城市名：BigDataCloud 逆地理编码（免费无密钥）
     (function () {
-        // 如需切换城市，修改下面两个数字（纬度, 经度）
-        // 常用参考：北京 39.9042,116.4074；上海 31.2304,121.4737；广州 23.1291,113.2644；深圳 22.5431,114.0579
-        var lat = 39.9042, lon = 116.4074;
-        var el = document.getElementById('heroWeather');
+        var DEFAULT_CITY = {lat: 39.9042, lon: 116.4074, name: '北京'};
+        var iconEl = document.querySelector('#heroWeather i');
+        var textEl = document.getElementById('heroWeatherText');
+        var btnEl = document.getElementById('heroLocateBtn');
 
         var wmoMap = {
-            0:  {icon: 'fa-sun', text: '晴朗'},
-            1:  {icon: 'fa-cloud-sun', text: ' mainly 晴'},
+            0:  {icon: 'fa-sun', text: '晴'},
+            1:  {icon: 'fa-cloud-sun', text: '大致晴朗'},
             2:  {icon: 'fa-cloud-sun', text: '多云'},
-            3:  {icon: 'fa-cloud', text: '阴天'},
+            3:  {icon: 'fa-cloud', text: '阴'},
             45: {icon: 'fa-smog', text: '雾'},
             48: {icon: 'fa-smog', text: '雾凇'},
-            51: {icon: 'fa-cloud-rain', text: '毛毛雨'},
-            53: {icon: 'fa-cloud-rain', text: '中雨'},
-            55: {icon: 'fa-cloud-showers-heavy', text: '大雨'},
+            51: {icon: 'fa-cloud-rain', text: '小毛雨'},
+            53: {icon: 'fa-cloud-rain', text: '毛毛雨'},
+            55: {icon: 'fa-cloud-showers-heavy', text: '密毛雨'},
             61: {icon: 'fa-cloud-rain', text: '小雨'},
             63: {icon: 'fa-cloud-showers-heavy', text: '中雨'},
             65: {icon: 'fa-cloud-showers-heavy', text: '大雨'},
@@ -473,21 +476,84 @@
             80: {icon: 'fa-cloud-rain', text: '阵雨'},
             81: {icon: 'fa-cloud-showers-heavy', text: '强阵雨'},
             82: {icon: 'fa-cloud-showers-heavy', text: '暴雨'},
-            95: {icon: 'fa-bolt', text: '雷雨'},
+            95: {icon: 'fa-bolt', text: '雷阵雨'},
             96: {icon: 'fa-bolt', text: '雷雨伴冰雹'},
             99: {icon: 'fa-bolt', text: '强雷雨伴冰雹'}
         };
 
-        fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current_weather=true&timezone=Asia%2FShanghai')
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-                var cw = data.current_weather;
-                var info = wmoMap[cw.weathercode] || {icon: 'fa-cloud', text: '多云'};
-                el.innerHTML = '<i class="fas ' + info.icon + '"></i> ' + info.text + ' · ' + Math.round(cw.temperature) + '°C';
-            })
-            .catch(function () {
-                el.innerHTML = '<i class="fas fa-cloud"></i> 天气暂不可用';
-            });
+        function setIcon(cls) {
+            iconEl.className = cls;
+        }
+
+        // 用经纬度获取天气；cityName 可选，isDefault 标识是否为降级城市
+        function loadWeather(lat, lon, cityName, isDefault) {
+            textEl.textContent = '正在获取天气…';
+            setIcon('fas fa-cloud');
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current_weather=true&timezone=auto')
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    var cw = data.current_weather;
+                    var info = wmoMap[cw.weathercode] || {icon: 'fa-cloud', text: '多云'};
+                    setIcon('fas ' + info.icon);
+                    var prefix = isDefault ? '默认·' + cityName : (cityName || '当前位置');
+                    textEl.textContent = prefix + ' · ' + info.text + ' ' + Math.round(cw.temperature) + '°C';
+                })
+                .catch(function () {
+                    setIcon('fas fa-cloud');
+                    textEl.textContent = '天气获取失败';
+                });
+        }
+
+        // 逆地理编码：经纬度 → 城市名（失败不影响天气展示）
+        function reverseGeo(lat, lon, cb) {
+            fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + lat + '&longitude=' + lon + '&localityLanguage=zh')
+                .then(function (res) { return res.json(); })
+                .then(function (geo) {
+                    var name = geo.city || geo.locality || geo.principalSubdivision || geo.countryName || '';
+                    cb(name);
+                })
+                .catch(function () { cb(''); });
+        }
+
+        function useDefault(msg) {
+            // 降级：明确标注是默认城市，绝不假装定位成功
+            setIcon('fas fa-map-marker-alt');
+            textEl.textContent = (msg ? msg + '，' : '') + '使用默认·' + DEFAULT_CITY.name;
+            loadWeather(DEFAULT_CITY.lat, DEFAULT_CITY.lon, DEFAULT_CITY.name, true);
+        }
+
+        function locate() {
+            if (!('geolocation' in navigator)) {
+                useDefault('浏览器不支持定位');
+                return;
+            }
+            setIcon('fas fa-spinner fa-spin');
+            textEl.textContent = '正在定位…';
+            navigator.geolocation.getCurrentPosition(
+                function (pos) {
+                    var lat = pos.coords.latitude, lon = pos.coords.longitude;
+                    setIcon('fas fa-spinner fa-spin');
+                    textEl.textContent = '定位成功，获取天气…';
+                    reverseGeo(lat, lon, function (cityName) {
+                        loadWeather(lat, lon, cityName, false);
+                    });
+                },
+                function (err) {
+                    var msg;
+                    switch (err.code) {
+                        case 1: msg = '定位权限被拒绝'; break;
+                        case 2: msg = '位置暂不可用'; break;
+                        case 3: msg = '定位超时'; break;
+                        default: msg = '定位失败';
+                    }
+                    useDefault(msg);
+                },
+                {enableHighAccuracy: false, timeout: 8000, maximumAge: 600000}
+            );
+        }
+
+        btnEl.addEventListener('click', locate);
+        locate();
     })();
 </script>
 
@@ -522,37 +588,10 @@
             <div class="tag-chips">
                 
                 
-                <a href="/tags/Hexo/" title="Hexo: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Hexo" style="background-color: #F9EBEA;">Hexo
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/GitHub/" title="GitHub: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="GitHub" style="background-color: #F5EEF8;">GitHub
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="博客搭建: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="博客搭建" style="background-color: #D5F5E3;">博客搭建
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/Markdown/" title="Markdown: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Markdown" style="background-color: #E8F8F5;">Markdown
+                            data-tagname="Markdown" style="background-color: #F9EBEA;">Markdown
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -561,7 +600,7 @@
                 <a href="/tags/%E6%95%99%E7%A8%8B/" title="教程: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="教程" style="background-color: #FEF9E7;">教程
+                            data-tagname="教程" style="background-color: #F5EEF8;">教程
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -570,7 +609,34 @@
                 <a href="/tags/%E9%9A%8F%E7%AC%94/" title="随笔: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="随笔" style="background-color: #F8F9F9;">随笔
+                            data-tagname="随笔" style="background-color: #D5F5E3;">随笔
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Hexo/" title="Hexo: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Hexo" style="background-color: #E8F8F5;">Hexo
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/GitHub/" title="GitHub: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="GitHub" style="background-color: #FEF9E7;">GitHub
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="博客搭建: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="博客搭建" style="background-color: #F8F9F9;">博客搭建
                         <span class="tag-length">1</span>
                     </span>
                 </a>
