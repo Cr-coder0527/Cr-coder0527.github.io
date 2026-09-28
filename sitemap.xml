@@ -2,33 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://cr-coder0527.github.io/ask/index.html</loc>
-    
-    <lastmod>2026-09-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://cr-coder0527.github.io/games/feihualing/index.html</loc>
-    
-    <lastmod>2026-09-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://cr-coder0527.github.io/history/index.html</loc>
-    
-    <lastmod>2026-09-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://cr-coder0527.github.io/posts/95606afa.html</loc>
     
     <lastmod>2026-09-28</lastmod>
@@ -128,27 +101,6 @@
 
   
   <url>
-    <loc>https://cr-coder0527.github.io/tags/Markdown/</loc>
-    <lastmod>2026-09-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cr-coder0527.github.io/tags/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2026-09-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cr-coder0527.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2026-09-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cr-coder0527.github.io/tags/Hexo/</loc>
     <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -164,6 +116,27 @@
   
   <url>
     <loc>https://cr-coder0527.github.io/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cr-coder0527.github.io/tags/Markdown/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cr-coder0527.github.io/tags/%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cr-coder0527.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
