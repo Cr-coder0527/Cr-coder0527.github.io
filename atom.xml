@@ -10,7 +10,29 @@
   <rights>All rights reserved 2026, 林燮</rights>
   <subtitle>Cr的空间</subtitle>
   <title>Cr的空间</title>
-  <updated>2026-09-28T04:35:26.650Z</updated>
+  <updated>2026-09-29T12:27:29.409Z</updated>
+  <entry>
+    <author>
+      <name>林燮</name>
+    </author>
+    <category term="生活随笔" scheme="https://cr-coder0527.github.io/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    <category term="随笔" scheme="https://cr-coder0527.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    <category term="博客" scheme="https://cr-coder0527.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    <category term="AI思考" scheme="https://cr-coder0527.github.io/tags/AI%E6%80%9D%E8%80%83/"/>
+    <category term="成长" scheme="https://cr-coder0527.github.io/tags/%E6%88%90%E9%95%BF/"/>
+    <id>https://cr-coder0527.github.io/posts/4df6b40e.html</id>
+    <link href="https://cr-coder0527.github.io/posts/4df6b40e.html"/>
+    <published>2026-09-29T13:30:00.000Z</published>
+    <summary>
+      <![CDATA[<blockquote>
+<p>也许写着写着，就会找到方向了。</p>
+</blockquote>
+<p>其实我也不知道我要写点什么，但是我感觉我应该写一篇。所以这篇随笔可能有一点”自由”？不过也许写着写着就会找到方向了。</p>
+<p>做这个博客，开始只是当作一个入营作业。所以]]>
+    </summary>
+    <title>在代码与诗意之间</title>
+    <updated>2026-09-29T12:27:29.409Z</updated>
+  </entry>
   <entry>
     <author>
       <name>林燮</name>
@@ -28,40 +50,5 @@
     </summary>
     <title>人生常在别离中</title>
     <updated>2026-09-28T04:35:26.650Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>林燮</name>
-    </author>
-    <category term="技术笔记" scheme="https://cr-coder0527.github.io/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
-    <category term="Hexo" scheme="https://cr-coder0527.github.io/tags/Hexo/"/>
-    <category term="GitHub" scheme="https://cr-coder0527.github.io/tags/GitHub/"/>
-    <category term="博客搭建" scheme="https://cr-coder0527.github.io/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    <id>https://cr-coder0527.github.io/posts/26c3db75.html</id>
-    <link href="https://cr-coder0527.github.io/posts/26c3db75.html"/>
-    <published>2026-09-24T04:00:00.000Z</published>
-    <summary>
-      <![CDATA[<blockquote>
-<p>本文记录了我从零开始搭建本博客的全过程：使用 <a href="https://hexo.io/zh-cn/">Hexo</a> 生成静态网页，使用 <a]]>
-    </summary>
-    <title>使用 Hexo + GitHub Pages 搭建个人博客</title>
-    <updated>2026-09-28T04:35:26.612Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>林燮</name>
-    </author>
-    <category term="技术笔记" scheme="https://cr-coder0527.github.io/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
-    <category term="Markdown" scheme="https://cr-coder0527.github.io/tags/Markdown/"/>
-    <category term="教程" scheme="https://cr-coder0527.github.io/tags/%E6%95%99%E7%A8%8B/"/>
-    <id>https://cr-coder0527.github.io/posts/681be418.html</id>
-    <link href="https://cr-coder0527.github.io/posts/681be418.html"/>
-    <published>2026-09-23T12:00:00.000Z</published>
-    <summary>
-      <![CDATA[<blockquote>
-<p>这篇文章是我在搭建博客过程中整理的 <strong>Markdown 学习笔记</strong>。Markdown]]>
-    </summary>
-    <title>Markdown 语法入门指南</title>
-    <updated>2026-09-28T04:35:26.635Z</updated>
   </entry>
 </feed>
